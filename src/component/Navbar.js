@@ -1,7 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import { app1 } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import logo2 from "../utils/images/logo.png";
+import logo2 from "../utils/images/logo3.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { removeuser } from "../utils/Userslice";
@@ -14,11 +14,7 @@ const Navbar = () => {
   const userEmail = useSelector((state) => state?.user?.name);
 
   useEffect(() => {
-    if (!userEmail) {
-      navigate("/");
-    } else {
       setEmail(userEmail);
-    }
   }, [userEmail, navigate]);
 
   const logout_handler = () => {
@@ -33,30 +29,45 @@ const Navbar = () => {
       });
   };
 
+  const search_handler = () => {
+    navigate("/search");
+  };
+
   return (
-    <div className="absolute top-0 left-0 flex w-full h-24 items-center justify-between text-white px-5 md:px-10 z-50">
+    <div className="absolute top-0 left-0 flex w-full h-24 items-center justify-between text-white px-5 md:px-10 z-50 bg-opacity-80 bg-black backdrop-blur">
       <div className="flex items-center">
         <img className="w-20 md:w-28" src={logo2} alt="Logo" />
         <ul className="hidden md:flex space-x-6 ml-8">
-          <li className="cursor-pointer hover:text-red-400">Home</li>
-          <li className="cursor-pointer hover:text-red-400">Movies</li>
-          <li className="cursor-pointer hover:text-red-400">TV Shows</li>
-          <li className="cursor-pointer hover:text-red-400">News</li>
+          <li className="cursor-pointer hover:text-red-400 transition-colors">Home</li>
+          <li className="cursor-pointer hover:text-red-400 transition-colors">Movies</li>
+          <li className="cursor-pointer hover:text-red-400 transition-colors">TV Shows</li>
+          <li className="cursor-pointer hover:text-red-400 transition-colors">News</li>
         </ul>
       </div>
-      <div className="flex items-center space-x-4">
-        <img
-          className="w-8 h-8 rounded-full"
-          src="https://img.freepik.com/premium-photo/stylish-man-flat-vector-profile-picture-ai-generated_606187-310.jpg?semt=ais_hybrid"
-          alt="Profile"
-        />
+      <div className="flex items-center space-x-6">
+        <button
+          onClick={search_handler}
+          type="button"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out px-5 py-2.5 flex items-center"
+        >
+          <span className="hidden md:block">MovieMentor</span>
+          <span className="block md:hidden">Search</span>
+        </button>
+
         <button
           onClick={logout_handler}
-          className="bg-red-600 hover:bg-red-800 px-4 py-2 rounded-full text-sm font-medium transition"
+          className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out px-5 py-2.5 flex items-center"
         >
-          <h1>Logout</h1>
-          <h6 className="text-xs">{mail}</h6>
+          Logout
         </button>
+        <div className="flex justify-center flex-col items-center">
+          <img
+            className="w-8 h-8 rounded-full"
+            src="https://img.freepik.com/premium-photo/stylish-man-flat-vector-profile-picture-ai-generated_606187-310.jpg?semt=ais_hybrid"
+            alt="Profile"
+          />
+          <h1 className="text-sm">{mail}</h1>
+        </div>
       </div>
     </div>
   );

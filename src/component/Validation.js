@@ -7,5 +7,4 @@ export function validation(email,pass)
     if(!ps)
         return "Password not valid";
     return null;
-
 }

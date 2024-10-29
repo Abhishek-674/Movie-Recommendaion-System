@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Headervedio from "./Headervedio";
 import { options } from "../utils/constant";
+import { Api_Key } from "../utils/api";
 const Headermovie=()=>{
     const [header_movie_data,setheader_movie_data]=useState({});
     const [header_movie_id,setheader_movie_id]=useState();
@@ -9,7 +10,7 @@ const Headermovie=()=>{
     const [overview,setoverview]=useState("");
     const[flag,setflag]=useState(false);
     const header_movie= async()=>{
-        const header_movie= await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=6dc74219d2cf71796144e04f5065e10f",options)
+        const header_movie= await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${Api_Key}`,options)
         const result= await header_movie.json();
         // console.log(result?.results[0]?.id);
         const randomIndex = Math.floor(Math.random() * Math.min(result.results.length, 20));
