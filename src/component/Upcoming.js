@@ -22,7 +22,7 @@ const Upcoming = () => {
 
   return (
     <div className="p-4 md:p-8 lg:p-16 -mt-[7%] pb-[8%] relative z-30"> {/* Adjust padding for responsiveness */}
-      <h1 className="text-white font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Upcoming</h1>
+      <h1 className="text-violet-500 font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Upcoming</h1>
       <div className="flex space-x-2 md:space-x-4 overflow-x-auto scrollbar-hide">
         {data.length > 0 &&
           data.map((movie) => (

@@ -23,7 +23,7 @@ const Popular = () => {
 
   return (
     <div className="p-4 md:p-8 lg:p-16 -mt-[7%] pb-[12%] relative z-30">
-      <h1 className="text-white font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Popular Movies</h1>
+      <h1 className="text-red-600 font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Popular Movies</h1>
       <div className="flex space-x-2 md:space-x-4 overflow-x-auto scrollbar-hide">
         {data.length > 0 &&
           data.map((movie) => (

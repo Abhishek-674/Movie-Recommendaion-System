@@ -40,7 +40,7 @@ export const MovieDetailofbrowsepage = () => {
     }, [params.movie_id]);
 
     return (
-        <div>
+        <div className="bg-black">
             <Navbar />
             
             {/* Video Section */}
@@ -57,7 +57,7 @@ export const MovieDetailofbrowsepage = () => {
             </div>
 
             {/* Main Content Section */}
-            <main className="relative bg-black text-white mt-4 md:-mt-[3%] z-20 -mt-[8%]">
+            <main className="relative bg-black text-white mt-4 md:-mt-[3%] z-20 -mt-[9%]">
                 <section className="flex flex-col md:flex-row items-center px-4 md:px-8 py-6">
                     <div className="w-full md:w-1/3 mb-4 md:mb-0">
                         <img className="rounded-2xl w-full max-w-xs mx-auto" src={image} alt={movie.title} />

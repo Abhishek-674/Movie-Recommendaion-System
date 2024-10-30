@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { movie_poster_url, options } from "../utils/constant";
 import logo2 from "../utils/images/logo3.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Searchedmoviecard from "./Searchmoviecard";
@@ -25,6 +25,15 @@ const Searchmovie = () => {
     navigate("/");
   }
 
+  // Load movie details from local storage on mount
+  useEffect(() => {
+    const storedMovies = localStorage.getItem("movieDetails");
+    if (storedMovies) {
+      setMovieDetails(JSON.parse(storedMovies));
+      setFlag(true); // Set flag to true since we have movie details
+    }
+  }, []);
+
   const searchButtonHandler = async () => {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -37,28 +46,28 @@ const Searchmovie = () => {
         ? movies.split(",").map((movie) => movie.trim()).slice(0, 50)
         : []; // Limit to 50 movies
       console.log(movieArray);
-      
+
       // Collect movie ID fetch requests, taking only the first result
       const movieIdFetchPromises = movieArray.map(async (movie) => {
         const response = await fetch(
           `https://api.themoviedb.org/3/search/movie?api_key=${Api_Key}&query=${encodeURIComponent(movie)}&include_adult=false&language=en-US&page=1`,
           options
         );
-       
+
         const result2 = await response.json();
         console.log(result2);
 
         // Take only the ID of the first result, if available
-        const movieId = result2.results.length > 0 ? result2.results[0].id : null; 
+        const movieId = result2.results.length > 0 ? result2.results[0].id : null;
         if (movieId) {
           console.log("Movie ID:", movieId); // Log the movie ID
         }
-        return movieId; 
+        return movieId;
       });
 
       // Resolve all movie ID fetch requests and filter out null values
       const collectedMovieIds = await Promise.all(movieIdFetchPromises);
-      const validMovieIds = collectedMovieIds.filter(id => id !== null); // Filter out null IDs
+      const validMovieIds = collectedMovieIds.filter((id) => id !== null); // Filter out null IDs
       setMovieDetails([]); // Clear previous details
 
       // Fetch details for each collected movie ID, limited to 20
@@ -73,6 +82,9 @@ const Searchmovie = () => {
       // Resolve all detail fetch requests and update the state
       const detailsResults = await Promise.all(movieDetailsFetchPromises);
       setMovieDetails(detailsResults.slice(0, 20)); // Limit total movie details to 20
+
+      // Store movie details in local storage
+      localStorage.setItem("movieDetails", JSON.stringify(detailsResults.slice(0, 20)));
     } catch (error) {
       console.error("Error fetching movie data:", error);
     }
@@ -92,7 +104,7 @@ const Searchmovie = () => {
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="flex justify-between">
           <div className="w-full flex justify-between items-center p-4">
-            <img className="w-32 md:w-40 ml-4" src={logo2} alt="Logo" />
+            <img className="w-24 md:w-24 ml-4" src={logo2} alt="Logo" />
             <button
               onClick={homeButtonHandler}
               type="button"
@@ -109,7 +121,7 @@ const Searchmovie = () => {
             </h1>
           )}
           <h2 className="text-xl md:text-2xl lg:text-3xl text-center w-11/12 md:w-3/5 lg:w-2/5 mx-auto px-4 md:px-10 font-bold">
-          I am your Movie Mentor, here to recommend great movies for you!
+            I am your Movie Mentor, here to recommend great movies for you!
           </h2>
           <div className="my-8">
             <h4 className="text-center text-lg font-bold m-4">
@@ -138,7 +150,7 @@ const Searchmovie = () => {
               <Searchedmoviecard key={index} data={details} />
             ))
           ) : (
-              flag === true ? (
+            flag === true ? (
               <div className="text-center text-lg font-bold mt-4">
                 No matches found for your prompt. Please rewrite the prompt.
               </div>

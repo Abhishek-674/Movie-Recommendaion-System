@@ -20,11 +20,11 @@ const SearchedMovieCard = (props) => {
         <div
             
             onClick={() => card_click_handler(props.data.id)}
-            className=" cursor-pointer w-36 h-52 sm:w-52 sm:h-[320px] md:w-1/4 lg:w-48 rounded-lg shadow-xl dark:bg-black overflow-hidden m-4 relative transition-transform duration-300 hover:scale-105 flex flex-col"
+            className=" cursor-pointer w-[155px] h-52 sm:w-52 sm:h-[320px] md:w-1/4 lg:w-48 rounded-lg shadow-xl dark:bg-black overflow-hidden m-4 relative transition-transform duration-300 hover:scale-105 flex flex-col"
         >
             {/* Image occupying 80% of the height */}
             <img 
-                className="w-full h-4/5 object-cover rounded-lg transition duration-500 ease-in-out transform hover:scale-110 p-1" 
+                className="w-full h-4/5 object-cover rounded-lg transition duration-500 ease-in-out transform hover:scale-110 " 
                 src={`https://image.tmdb.org/t/p/original/${props.data.poster_path}`} 
                 alt={props.data.title} 
             />

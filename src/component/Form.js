@@ -82,7 +82,15 @@ const Form = () => {
               ref={name}
               className="h-12 mb-4 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-red-500"
               type="text"
-              placeholder="Enter Name"
+              placeholder="Enter First Name"
+            />
+          )}
+            {!signedin && (
+            <input
+              
+              className="h-12 mb-4 px-3 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-red-500"
+              type="text"
+              placeholder="Enter Last Name"
             />
           )}
           <input

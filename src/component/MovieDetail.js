@@ -40,7 +40,7 @@ export const MovieDetail = () => {
     }, [params.movie_id]);
 
     return (
-        <div>
+        <div className="bg-black">
             <Navbar />
             
             {/* Video Section */}

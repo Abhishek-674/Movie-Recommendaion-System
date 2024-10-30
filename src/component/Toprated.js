@@ -22,7 +22,7 @@ const Toprated = () => {
 
   return (
     <div className="p-4 md:p-8 lg:p-16 -mt-[7%] pb-[12%] relative z-30"> {/* Responsive padding */}
-      <h1 className="text-white font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Top Rated</h1>
+      <h1 className="text-sky-500 font-bold font-sans text-xl md:text-2xl -mb-8 ml-2">Top Rated</h1>
       <div className="flex space-x-2 md:space-x-4 overflow-x-auto scrollbar-hide">
         {data.length > 0 && // Check if data is available
           data.map((movie) => (
