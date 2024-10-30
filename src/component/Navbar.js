@@ -41,26 +41,26 @@ const Navbar = () => {
       </div>
       
       <div className="flex items-center space-x-6">
-      <Link to="/b"><li className="text-white text-lg list-none font-semibold">Home</li></Link>
-        <button
+      <Link to="/b" className="hover:bg-blue-700 text-white text-lg list-none font-semibold p-2 hover:rounded-lg"><li >Home</li></Link>
+        <li
           onClick={search_handler}
           type="button"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out px-5 py-2.5 flex items-center"
+          className="cursor-pointer hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out px-5 py-2.5 flex items-center"
         >
           
           <span className="hidden md:block">MovieMentor</span>
           
           <span className="block md:hidden">Search</span>
-        </button>
-        <div  onClick={logout_handler} className="flex justify-center flex-col items-center ">
+        </li>
+        <div  onClick={logout_handler} className=" cursor-pointer flex justify-center flex-col items-center mt-[4%]">
           <img
             
             className="w-8 h-8 rounded-full"
             src="https://img.freepik.com/premium-photo/stylish-man-flat-vector-profile-picture-ai-generated_606187-310.jpg?semt=ais_hybrid"
             alt="Profile"
           />
-          <h6 className="text-sm">{mail}</h6>
-          <h6 className="text-sm">Logout</h6>
+          <h6 className="text-[8px]">{mail}</h6>
+          <h6 className="text-[8px]">Logout</h6>
           {/* <h1 className=""></h1> */}
         </div>
       </div>
