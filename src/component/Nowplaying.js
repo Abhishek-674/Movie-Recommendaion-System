@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { options } from "../utils/constant";
 import Moviecard from "./Moviecard";
 import "./Nowplaying_style.css";
 
 const Nowplaying = () => {
   const [nowPlayingData, setNowPlayingData] = useState();
+  const navigate = useNavigate();
 
   const nowPlaying = async () => {
     const x = await fetch(
@@ -13,6 +15,11 @@ const Nowplaying = () => {
     );
     const result = await x.json();
     setNowPlayingData(result?.results);
+  };
+
+  const card_click_handler = (movieId) => {
+    console.log(movieId)
+    navigate(`/b/${movieId}`);
   };
 
   useEffect(() => {
@@ -30,6 +37,7 @@ const Nowplaying = () => {
               poster_id={movie.poster_path} 
               name={movie.title} 
               className="w-32 md:w-40 lg:w-48" // Responsive width for Moviecard
+              onClick={() => card_click_handler(movie.id)} // Apply onClick handler
             />
           ))}
       </div>

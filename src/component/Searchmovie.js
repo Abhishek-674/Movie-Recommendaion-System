@@ -26,7 +26,6 @@ const Searchmovie = () => {
   }
 
   const searchButtonHandler = async () => {
-    setFlag(true);
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -67,6 +66,7 @@ const Searchmovie = () => {
         const detailsResponse = await fetch(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${Api_Key}&language=en-US`
         );
+
         return await detailsResponse.json();
       });
 
@@ -76,6 +76,7 @@ const Searchmovie = () => {
     } catch (error) {
       console.error("Error fetching movie data:", error);
     }
+    setFlag(true);
   };
 
   return (
@@ -101,14 +102,14 @@ const Searchmovie = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col mt-[2%]">
+        <div className="flex flex-col mt-[2%] p-5">
           {name && (
             <h1 className="font-extrabold text-6xl text-center my-6 font-sans">
-              Hey, {name}
+              Hey {name}
             </h1>
           )}
           <h2 className="text-xl md:text-2xl lg:text-3xl text-center w-11/12 md:w-3/5 lg:w-2/5 mx-auto px-4 md:px-10 font-bold">
-            I am your MovieMentor, here to suggest you movies.
+          I am your Movie Mentor, here to recommend great movies for you!
           </h2>
           <div className="my-8">
             <h4 className="text-center text-lg font-bold m-4">
@@ -131,13 +132,13 @@ const Searchmovie = () => {
             </div>
           </div>
         </div>
-        <div className="bg-black flex flex-wrap justify-around">
+        <div className="bg-black flex flex-wrap justify-around ">
           {movieDetails.length > 0 ? (
             movieDetails.map((details, index) => (
               <Searchedmoviecard key={index} data={details} />
             ))
           ) : (
-            flag === true ? (
+              flag === true ? (
               <div className="text-center text-lg font-bold mt-4">
                 No matches found for your prompt. Please rewrite the prompt.
               </div>

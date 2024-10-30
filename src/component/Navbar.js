@@ -15,7 +15,7 @@ const Navbar = () => {
 
   useEffect(() => {
       setEmail(userEmail);
-  }, [userEmail, navigate]);
+  }, [userEmail, navigate,mail]);
 
   const logout_handler = () => {
     const auth = getAuth(app1);
@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <div className="absolute top-0 left-0 flex w-full h-24 items-center justify-between text-white px-5 md:px-10 z-50 bg-opacity-80 bg-black backdrop-blur">
       <div className="flex items-center">
-        <img className="w-20 md:w-28" src={logo2} alt="Logo" />
+        <img className="w-20 md:w-20" src={logo2} alt="Logo" />
         <ul className="hidden md:flex space-x-6 ml-8">
           <li className="cursor-pointer hover:text-red-400 transition-colors">Home</li>
           <li className="cursor-pointer hover:text-red-400 transition-colors">Movies</li>

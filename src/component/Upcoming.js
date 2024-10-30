@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"; // Import useEffect instead of useS
 import { options } from "../utils/constant";
 import Moviecard from "./Moviecard";
 import { Api_Key } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const Upcoming = () => {
   const [data, setData] = useState([]);
-
+  const navigate=useNavigate();
   const upcomingData = async () => {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${Api_Key}`,
@@ -29,6 +30,7 @@ const Upcoming = () => {
               key={movie.id} 
               poster_id={movie.poster_path} 
               name={movie.title} 
+              onClick={() => navigate(`/movie/${movie.id}`)}
               className="w-32 md:w-40 lg:w-48" // Responsive width for Moviecard
             />
           ))}

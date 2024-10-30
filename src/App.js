@@ -1,34 +1,39 @@
-// App.js
 import React, { useEffect } from "react";
-import Landingpage from "./component/Landingpage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
-import { Appstore } from "./utils/Appstore";
-import Browsepage from "./component/Browsepage";
-import Searchmovie from "./component/Searchmovie";
-import Moviementor from "./component/Moviementor";
-import MovieDetail from "./component/MovieDetail"; // Import the new component
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app1 } from "./utils/firebase";
 import { adduser, removeuser } from "./utils/Userslice";
-import ProtectedRoute from "./ProtectedRoute"; // Import the ProtectedRoute component
+import { Appstore } from "./utils/Appstore";
+import Landingpage from "./component/Landingpage";
+import Browsepage from "./component/Browsepage";
+import Moviementor from "./component/Moviementor";
+import MovieDetail from "./component/MovieDetail";
+import ProtectedRoute from "./ProtectedRoute";
+import { app1 } from "./utils/firebase";
+import MovieDetailofbrowsepage from "./component/MovieDetailofbrowsepage";
 
 const App = () => {
   const dispatch = useDispatch();
   const auth = getAuth(app1);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      dispatch(adduser(user));
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in
-        dispatch(adduser({ email: user.email, name: user.displayName }));
+        const userData = { email: user.email, name: user.displayName };
+        dispatch(adduser(userData));
+        localStorage.setItem("user", JSON.stringify(userData));
       } else {
-        // User is signed out
         dispatch(removeuser());
+        localStorage.removeItem("user");
       }
     });
 
-    return () => unsubscribe(); // Clean up the listener on unmount
+    return () => unsubscribe();
   }, [auth, dispatch]);
 
   return (
@@ -38,8 +43,8 @@ const App = () => {
           <Route path="/" element={<Landingpage />} />
           <Route path="/search" element={<ProtectedRoute element={<Moviementor />} />} />
           <Route path="/movie/:movieId" element={<ProtectedRoute element={<MovieDetail />} />} />
-          <Route path="/b" element={<ProtectedRoute element={<Browsepage />} />} /> {/* Protecting the Browsepage */}
-          {/* Add more protected routes here as needed */}
+          <Route path="/b/:movieId" element={<ProtectedRoute element={<MovieDetailofbrowsepage />} />} />
+          <Route path="/b" element={<ProtectedRoute element={<Browsepage />} />} />
         </Routes>
       </BrowserRouter>
     </Provider>
