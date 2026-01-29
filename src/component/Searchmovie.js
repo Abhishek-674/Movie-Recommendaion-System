@@ -7,7 +7,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import Searchedmoviecard from "./Searchmoviecard";
 import { Api_Key } from "../utils/api";
 
-const API_KEY = "AIzaSyDzJ5yvoltDthxUoEmfj-GTa6CPOrdLGBo";
+// const API_KEY = "AIzaSyDzJ5yvoltDthxUoEmfj-GTa6CPOrdLGBo";
 
 const Searchmovie = () => {
   const [searchText, setSearchText] = useState("");
@@ -35,7 +35,7 @@ const Searchmovie = () => {
   }, []);
 
   const searchButtonHandler = async () => {
-    const genAI = new GoogleGenerativeAI(API_KEY);
+    const genAI = new GoogleGenerativeAI(Api_Key);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `.Query: ${searchText} just give me name of movie in a single line separated by comma by analysing this query just give in simple text form without any special character or inverted comma just a simple text in single line separated by comma`;
